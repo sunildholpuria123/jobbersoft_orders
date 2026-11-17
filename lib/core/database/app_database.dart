@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
@@ -17,19 +16,30 @@ class AppDatabase {
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    final path = join(
-      await getDatabasesPath(),
-      'jobbersoft_orders.db',
-    );
+    final path = join(await getDatabasesPath(), 'jobbersoft_orders.db');
 
     final db = await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onConfigure: (db) async {
         await db.execute('PRAGMA foreign_keys = ON');
       },
       onCreate: (db, version) async {
         await _createV1(db);
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 2) {
+          await db.execute('ALTER TABLE orders ADD COLUMN po_number TEXT NULL');
+
+          await db.execute(
+            'ALTER TABLE shipments ADD COLUMN bol_number TEXT NULL',
+          );
+
+          await db.execute('''
+        CREATE UNIQUE INDEX idx_shipments_bol_number
+        ON shipments(bol_number)
+      ''');
+        }
       },
     );
 
@@ -341,10 +351,7 @@ class AppDatabase {
         }
       }
 
-      await txn.insert('app_meta', {
-        'key': 'seed_complete',
-        'value': '1',
-      });
+      await txn.insert('app_meta', {'key': 'seed_complete', 'value': '1'});
 
       await txn.insert('app_meta', {
         'key': 'seeded_on',
