@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "schema_version": 1,
+    "description": "Reference + demo data for the Offline-first Order & Shipment take-home. Load on first launch inside a single transaction.",
+    "units": "All volumes are US gallons (integers). Times are 24h local 'HH:mm'.",
+    "relative_dates": "Fields ending in '_offset_days' are relative to the device date at seed time (0 = today, 1 = tomorrow, -10 = ten days ago). Convert them to real dates when seeding so the data never goes stale.",
+    "conflict_rule": "The fake sync API returns 409 ORDER_CANCELLED for any order whose store_id is 13."
+  },
+
+  "products": [
+    { "id": 1, "code": "REG",  "name": "Regular Unleaded 87" },
+    { "id": 2, "code": "PREM", "name": "Premium Unleaded 93" },
+    { "id": 3, "code": "DSL",  "name": "Ultra Low Sulfur Diesel" }
+  ],
+
+  "stores": [
+    { "id": 1,  "name": "Northgate Express",      "address": "1201 N Main St, Springfield",     "delivery_open": "05:00", "delivery_close": "22:00" },
+    { "id": 2,  "name": "Riverside Fuel & Food",  "address": "88 River Rd, Springfield",        "delivery_open": "06:00", "delivery_close": "20:00" },
+    { "id": 3,  "name": "Hilltop Gas",            "address": "450 Summit Ave, Fairview",        "delivery_open": "00:00", "delivery_close": "23:59" },
+    { "id": 4,  "name": "Cedar Junction Mart",    "address": "17 Cedar Ln, Fairview",           "delivery_open": "07:00", "delivery_close": "19:00" },
+    { "id": 5,  "name": "Old Mill Station",       "address": "902 Mill St, Brookfield",         "delivery_open": "06:00", "delivery_close": "18:00" },
+    { "id": 6,  "name": "Parkway Petro",          "address": "3300 Parkway Blvd, Brookfield",   "delivery_open": "00:00", "delivery_close": "23:59" },
+    { "id": 7,  "name": "Westfield Corner Store", "address": "55 W Field Rd, Westfield",        "delivery_open": "08:00", "delivery_close": "17:00" },
+    { "id": 8,  "name": "Lakeside Quick Stop",    "address": "210 Shore Dr, Lakeside",          "delivery_open": "05:30", "delivery_close": "21:30" },
+    { "id": 9,  "name": "Pine Valley Fuel",       "address": "7 Pine Valley Rd, Pine Valley",   "delivery_open": "06:00", "delivery_close": "22:00" },
+    { "id": 10, "name": "Granite Truck Stop",     "address": "I-90 Exit 42, Granite Falls",     "delivery_open": "00:00", "delivery_close": "23:59" },
+    { "id": 11, "name": "Maple Avenue Gas",       "address": "640 Maple Ave, Springfield",      "delivery_open": "06:00", "delivery_close": "21:00" },
+    { "id": 12, "name": "Sunrise Market",         "address": "19 Sunrise Blvd, Eastport",       "delivery_open": "05:00", "delivery_close": "23:00" },
+    { "id": 13, "name": "Lakeview Fuel Stop",     "address": "1300 Lakeview Dr, Lakeside",      "delivery_open": "06:00", "delivery_close": "22:00" },
+    { "id": 14, "name": "Brookside Express",      "address": "77 Brook St, Brookfield",         "delivery_open": "07:00", "delivery_close": "20:00" },
+    { "id": 15, "name": "Harbor Point Fuel",      "address": "5 Harbor Way, Eastport",          "delivery_open": "09:00", "delivery_close": "15:00" }
+  ],
+
+  "tanks": [
+    { "id": 1,  "store_id": 1,  "product_id": 1, "capacity_gal": 12000, "current_level_gal": 4500 },
+    { "id": 2,  "store_id": 1,  "product_id": 2, "capacity_gal": 8000,  "current_level_gal": 6100 },
+    { "id": 3,  "store_id": 1,  "product_id": 3, "capacity_gal": 10000, "current_level_gal": 3000 },
+
+    { "id": 4,  "store_id": 2,  "product_id": 1, "capacity_gal": 10000, "current_level_gal": 2000 },
+    { "id": 5,  "store_id": 2,  "product_id": 2, "capacity_gal": 6000,  "current_level_gal": 5800 },
+
+    { "id": 6,  "store_id": 3,  "product_id": 1, "capacity_gal": 15000, "current_level_gal": 9000 },
+    { "id": 7,  "store_id": 3,  "product_id": 2, "capacity_gal": 8000,  "current_level_gal": 2000 },
+    { "id": 8,  "store_id": 3,  "product_id": 3, "capacity_gal": 8000,  "current_level_gal": 7900 },
+
+    { "id": 9,  "store_id": 4,  "product_id": 1, "capacity_gal": 8000,  "current_level_gal": 1000 },
+    { "id": 10, "store_id": 4,  "product_id": 2, "capacity_gal": 4000,  "current_level_gal": 3500 },
+
+    { "id": 11, "store_id": 5,  "product_id": 1, "capacity_gal": 10000, "current_level_gal": 10000 },
+    { "id": 12, "store_id": 5,  "product_id": 3, "capacity_gal": 6000,  "current_level_gal": 1500 },
+
+    { "id": 13, "store_id": 6,  "product_id": 1, "capacity_gal": 20000, "current_level_gal": 8000 },
+    { "id": 14, "store_id": 6,  "product_id": 2, "capacity_gal": 10000, "current_level_gal": 4000 },
+    { "id": 15, "store_id": 6,  "product_id": 3, "capacity_gal": 12000, "current_level_gal": 6000 },
+
+    { "id": 16, "store_id": 7,  "product_id": 1, "capacity_gal": 6000,  "current_level_gal": 3000 },
+
+    { "id": 17, "store_id": 8,  "product_id": 1, "capacity_gal": 10000, "current_level_gal": 6500 },
+    { "id": 18, "store_id": 8,  "product_id": 2, "capacity_gal": 6000,  "current_level_gal": 1200 },
+
+    { "id": 19, "store_id": 9,  "product_id": 1, "capacity_gal": 12000, "current_level_gal": 5000 },
+    { "id": 20, "store_id": 9,  "product_id": 2, "capacity_gal": 8000,  "current_level_gal": 7000 },
+    { "id": 21, "store_id": 9,  "product_id": 3, "capacity_gal": 8000,  "current_level_gal": 2500 },
+
+    { "id": 22, "store_id": 10, "product_id": 3, "capacity_gal": 20000, "current_level_gal": 4000 },
+    { "id": 23, "store_id": 10, "product_id": 3, "capacity_gal": 20000, "current_level_gal": 15000 },
+    { "id": 24, "store_id": 10, "product_id": 1, "capacity_gal": 8000,  "current_level_gal": 6000 },
+
+    { "id": 25, "store_id": 11, "product_id": 1, "capacity_gal": 10000, "current_level_gal": 3800 },
+    { "id": 26, "store_id": 11, "product_id": 2, "capacity_gal": 6000,  "current_level_gal": 2900 },
+
+    { "id": 27, "store_id": 12, "product_id": 1, "capacity_gal": 12000, "current_level_gal": 7200 },
+    { "id": 28, "store_id": 12, "product_id": 2, "capacity_gal": 8000,  "current_level_gal": 3300 },
+    { "id": 29, "store_id": 12, "product_id": 3, "capacity_gal": 6000,  "current_level_gal": 5000 },
+
+    { "id": 30, "store_id": 13, "product_id": 1, "capacity_gal": 10000, "current_level_gal": 2500 },
+    { "id": 31, "store_id": 13, "product_id": 2, "capacity_gal": 6000,  "current_level_gal": 3000 },
+
+    { "id": 32, "store_id": 14, "product_id": 1, "capacity_gal": 8000,  "current_level_gal": 4400 },
+    { "id": 33, "store_id": 14, "product_id": 3, "capacity_gal": 6000,  "current_level_gal": 1000 },
+
+    { "id": 34, "store_id": 15, "product_id": 1, "capacity_gal": 6000,  "current_level_gal": 1800 },
+    { "id": 35, "store_id": 15, "product_id": 2, "capacity_gal": 4000,  "current_level_gal": 900 }
+  ],
+
+  "trucks": [
+    { "id": 1, "plate_no": "TRK-101", "active": true  },
+    { "id": 2, "plate_no": "TRK-102", "active": true  },
+    { "id": 3, "plate_no": "TRK-103", "active": true  },
+    { "id": 4, "plate_no": "TRK-104", "active": false },
+    { "id": 5, "plate_no": "TRK-105", "active": true  }
+  ],
+
+  "compartments": [
+    { "id": 1,  "truck_id": 1, "position": 1, "capacity_gal": 3600 },
+    { "id": 2,  "truck_id": 1, "position": 2, "capacity_gal": 2000 },
+    { "id": 3,  "truck_id": 1, "position": 3, "capacity_gal": 1500 },
+    { "id": 4,  "truck_id": 1, "position": 4, "capacity_gal": 1500 },
+    { "id": 5,  "truck_id": 1, "position": 5, "capacity_gal": 1200 },
+
+    { "id": 6,  "truck_id": 2, "position": 1, "capacity_gal": 4000 },
+    { "id": 7,  "truck_id": 2, "position": 2, "capacity_gal": 3000 },
+    { "id": 8,  "truck_id": 2, "position": 3, "capacity_gal": 2000 },
+
+    { "id": 9,  "truck_id": 3, "position": 1, "capacity_gal": 2500 },
+    { "id": 10, "truck_id": 3, "position": 2, "capacity_gal": 2500 },
+    { "id": 11, "truck_id": 3, "position": 3, "capacity_gal": 2500 },
+    { "id": 12, "truck_id": 3, "position": 4, "capacity_gal": 2500 },
+
+    { "id": 13, "truck_id": 4, "position": 1, "capacity_gal": 3000 },
+    { "id": 14, "truck_id": 4, "position": 2, "capacity_gal": 3000 },
+    { "id": 15, "truck_id": 4, "position": 3, "capacity_gal": 3000 },
+
+    { "id": 16, "truck_id": 5, "position": 1, "capacity_gal": 1500 },
+    { "id": 17, "truck_id": 5, "position": 2, "capacity_gal": 1500 }
+  ],
+
+  "drivers": [
+    { "id": 1, "name": "Alex Carter", "license_expiry_offset_days": 400 },
+    { "id": 2, "name": "Priya Shah",  "license_expiry_offset_days": 200 },
+    { "id": 3, "name": "Marcus Lee",  "license_expiry_offset_days": 3 },
+    { "id": 4, "name": "Elena Rossi", "license_expiry_offset_days": -10 },
+    { "id": 5, "name": "Tom Becker",  "license_expiry_offset_days": 365 }
+  ],
+
+  "terminals": [
+    { "id": 1, "name": "North Rack Terminal" },
+    { "id": 2, "name": "Harbor Bulk Terminal" },
+    { "id": 3, "name": "Interstate Supply Terminal" }
+  ],
+
+  "demo_data": {
+    "_note": "Optional fixtures so the Shipment wizard can be exercised without creating orders first. Map them into YOUR transaction tables. Gallons are per tank (order line).",
+    "orders": [
+      {
+        "code": "O-1001", "store_id": 1, "status": "SUBMITTED",
+        "shipment_date_offset_days": 1, "delivery_time": "07:30", "po_number": null,
+        "lines": [
+          { "tank_id": 1, "gallons": 4000 },
+          { "tank_id": 2, "gallons": 1500 },
+          { "tank_id": 3, "gallons": 3000 }
+        ]
+      },
+      {
+        "code": "O-1002", "store_id": 3, "status": "SUBMITTED",
+        "shipment_date_offset_days": 1, "delivery_time": "09:00", "po_number": null,
+        "lines": [
+          { "tank_id": 6, "gallons": 5000 },
+          { "tank_id": 7, "gallons": 3000 }
+        ]
+      },
+      {
+        "code": "O-1003", "store_id": 9, "status": "SUBMITTED",
+        "shipment_date_offset_days": 1, "delivery_time": "11:00", "po_number": null,
+        "lines": [
+          { "tank_id": 19, "gallons": 3500 },
+          { "tank_id": 21, "gallons": 2500 }
+        ]
+      },
+      {
+        "code": "O-1004", "store_id": 13, "status": "SUBMITTED",
+        "shipment_date_offset_days": 1, "delivery_time": "13:00", "po_number": null,
+        "lines": [
+          { "tank_id": 30, "gallons": 3000 },
+          { "tank_id": 31, "gallons": 1500 }
+        ]
+      },
+      {
+        "code": "O-1005", "store_id": 10, "status": "SUBMITTED",
+        "shipment_date_offset_days": 1, "delivery_time": "06:00", "po_number": null,
+        "lines": [
+          { "tank_id": 22, "gallons": 9000 }
+        ]
+      },
+      {
+        "code": "O-1006", "store_id": 6, "status": "SUBMITTED",
+        "shipment_date_offset_days": 2, "delivery_time": "10:00", "po_number": null,
+        "lines": [
+          { "tank_id": 13, "gallons": 6000 },
+          { "tank_id": 14, "gallons": 2000 }
+        ]
+      },
+      {
+        "code": "O-1007", "store_id": 12, "status": "SCHEDULED",
+        "shipment_date_offset_days": 1, "delivery_time": "08:00", "po_number": null,
+        "lines": [
+          { "tank_id": 27, "gallons": 2500 },
+          { "tank_id": 28, "gallons": 2500 },
+          { "tank_id": 29, "gallons": 500 }
+        ]
+      }
+    ],
+    "shipments": [
+      {
+        "code": "S-9001", "status": "PLANNED",
+        "shipment_date_offset_days": 1,
+        "truck_id": 3, "driver_id": 5, "terminal_id": 1,
+        "bol_number": "BOL-77001",
+        "_bol_note": "bol_number is a v2 column. If you seed demo data while on v1, leave it NULL; shipments created before v2 legitimately have no BOL.",
+        "loads": [
+          { "compartment_id": 9,  "order_code": "O-1007", "tank_id": 27, "gallons": 2500 },
+          { "compartment_id": 10, "order_code": "O-1007", "tank_id": 28, "gallons": 2500 },
+          { "compartment_id": 11, "order_code": "O-1007", "tank_id": 29, "gallons": 500 }
+        ]
+      }
+    ]
+  }
+}
