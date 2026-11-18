@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shipments/widgets/shipment_progress_header.dart';
 import '../bloc/order_bloc.dart';
 import '../bloc/order_event.dart';
 import '../bloc/order_state.dart';
@@ -81,15 +82,9 @@ class OrderReviewPage extends StatelessWidget {
           ),
           body: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 28, vertical: 12),
-                child: Row(
-                  children: [
-                    Expanded(child: Divider(color: Colors.blue, thickness: 3)),
-                    Expanded(child: Divider(color: Colors.blue, thickness: 3)),
-                    Expanded(child: Divider(color: Colors.blue, thickness: 3)),
-                  ],
-                ),
+              const ShipmentProgressHeader(
+                currentStep: 3,
+                labels: const ['Store & Schedule', 'Tanks', 'Review'],
               ),
               const Divider(height: 1),
               Expanded(
@@ -105,9 +100,9 @@ class OrderReviewPage extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(
-                              context,
-                            ).popUntil((route) => route.isFirst);
+                            final navigator = Navigator.of(context);
+                            navigator.pop(); // Review → Tanks
+                            navigator.pop(); // Tanks → Store & Schedule
                           },
                           child: const Text('Edit'),
                         ),

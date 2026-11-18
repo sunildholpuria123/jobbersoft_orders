@@ -4,6 +4,10 @@ An offline-first Flutter application for fuel dispatch operations. Dispatchers c
 
 The application stores operational data locally in SQLite so the core workflows can operate without an internet connection.
 
+## Demo Video
+
+[Watch the application walkthrough](https://github.com/sunildholpuria123/jobbersoft_orders/blob/master/Recording%202026-11-18%20145803.mp4)
+
 ## 1. Technology Stack
 
 | Technology | Purpose |
@@ -154,8 +158,7 @@ test/
 ├── bloc/
 ├── dao/
 ├── database/
-├── validators/
-└── widget_test.dart
+└── validators/
 ```
 
 ## 5. Database Design
@@ -275,7 +278,7 @@ Cancellation updates the shipment to `CANCELLED`, restores eligible scheduled or
 Clone the repository:
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/sunildholpuria123/jobbersoft_orders.git
 cd jobbersoft_orders
 ```
 
@@ -322,7 +325,7 @@ The test suite covers database, DAO, migration, validation and BLoC behaviour.
 | Tank validators | 9 |
 | Order BLoC | 15 |
 | Shipment Wizard BLoC | 23 |
-| **Total** | **90** |
+| **Total** | **89** |
 
 DAO tests use an in-memory SQLite database through `sqflite_common_ffi`.
 
@@ -369,8 +372,7 @@ All generated code and changes were reviewed, executed and tested locally. AI as
 
 ---
 
-**Project:** JobberSoft Orders & Shipments
-**Framework:** Flutter
-**Database:** SQLite
+**Project:** JobberSoft Orders & Shipments  
+**Framework:** Flutter  
+**Database:** SQLite  
 **Architecture:** DAO → Repository → BLoC → UI
-

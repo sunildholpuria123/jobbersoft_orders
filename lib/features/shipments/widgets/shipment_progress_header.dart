@@ -3,18 +3,15 @@ import 'package:flutter/material.dart';
 
 class ShipmentProgressHeader extends StatelessWidget {
   final int currentStep;
+  final List<String> labels;
 
   const ShipmentProgressHeader({
     super.key,
     required this.currentStep,
+    this.labels = const ['Orders', 'Truck', 'Load', 'Review'],
   });
 
-  static const List<String> _labels = [
-    'Orders',
-    'Truck',
-    'Load',
-    'Review',
-  ];
+  @override
 
   @override
   Widget build(BuildContext context) {
@@ -22,24 +19,36 @@ class ShipmentProgressHeader extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 16,
+        horizontal: 8,
         vertical: 14,
       ),
       child: Row(
-        children: List.generate(4, (index) {
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: List.generate(labels.length, (index) {
           final step = index + 1;
           final completed = step <= currentStep;
 
           return Expanded(
-            child: Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
+                Row(
                   children: [
+                    Expanded(
+                      child: Container(
+                        height: 2,
+                        color: index == 0
+                            ? Colors.transparent
+                            : step <= currentStep
+                            ? primary
+                            : Colors.grey.shade300,
+                      ),
+                    ),
                     CircleAvatar(
                       radius: 14,
-                      backgroundColor:
-                      completed ? primary : Colors.grey.shade400,
+                      backgroundColor: completed
+                          ? primary
+                          : Colors.grey.shade400,
                       child: Text(
                         '$step',
                         style: const TextStyle(
@@ -49,30 +58,34 @@ class ShipmentProgressHeader extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      _labels[index],
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: step == currentStep
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-                if (index < 3)
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 18),
+                    Expanded(
                       child: Container(
                         height: 2,
-                        color: step < currentStep
+                        color: index == labels.length - 1
+                            ? Colors.transparent
+                            : step < currentStep
                             ? primary
                             : Colors.grey.shade300,
                       ),
                     ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    labels[index],
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: step == currentStep
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                    ),
                   ),
+                ),
               ],
             ),
           );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shipments/widgets/shipment_progress_header.dart';
 import '../bloc/order_bloc.dart';
 import '../bloc/order_event.dart';
 import '../bloc/order_state.dart';
@@ -160,21 +161,10 @@ class _OrderStepTwoPageState extends State<OrderStepTwoPage> {
 
               return Column(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 28, vertical: 12),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(color: Colors.blue, thickness: 3),
-                        ),
-                        Expanded(
-                          child: Divider(color: Colors.blue, thickness: 3),
-                        ),
-                        Expanded(child: Divider(color: Colors.grey)),
-                      ],
-                    ),
-                  ),
-                  const Divider(height: 1),
+                  ShipmentProgressHeader(
+                    currentStep: 2,
+                    labels: const ['Store & Schedule', 'Tanks', 'Review'],
+                  ),                  const Divider(height: 1),
                   Expanded(
                     child: tanks.isEmpty
                         ? const Center(child: Text('No tanks available'))

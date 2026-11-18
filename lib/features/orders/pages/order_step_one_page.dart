@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/di/injection.dart';
 import '../../../data/models/store_model.dart';
+import '../../shipments/widgets/shipment_progress_header.dart';
 import '../bloc/order_bloc.dart';
 import '../bloc/order_event.dart';
 import '../bloc/order_state.dart';
@@ -259,31 +260,9 @@ class _OrderStepOnePageState extends State<OrderStepOnePage> {
               return SafeArea(
                 child: Column(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 28,
-                        vertical: 12,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Divider(color: Colors.blue, thickness: 3),
-                          ),
-                          Expanded(child: Divider(color: Colors.grey)),
-                          Expanded(child: Divider(color: Colors.grey)),
-                        ],
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 18),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Store & schedule'),
-                          Text('Tanks'),
-                          Text('Review'),
-                        ],
-                      ),
+                    ShipmentProgressHeader(
+                      currentStep: 1,
+                      labels: const ['Store & Schedule', 'Tanks', 'Review'],
                     ),
                     const Divider(height: 24),
                     Expanded(
