@@ -20,25 +20,17 @@ class AppDatabase {
 
     final db = await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onConfigure: (db) async {
         await db.execute('PRAGMA foreign_keys = ON');
       },
       onCreate: (db, version) async {
         await _createV1(db);
+        await _ensureV2Schema(db);
       },
       onUpgrade: (db, oldVersion, newVersion) async {
-        if (oldVersion < 2) {
-          await db.execute('ALTER TABLE orders ADD COLUMN po_number TEXT NULL');
-
-          await db.execute(
-            'ALTER TABLE shipments ADD COLUMN bol_number TEXT NULL',
-          );
-
-          await db.execute('''
-        CREATE UNIQUE INDEX idx_shipments_bol_number
-        ON shipments(bol_number)
-      ''');
+        if (oldVersion < 3) {
+          await _ensureV2Schema(db);
         }
       },
     );
@@ -52,6 +44,46 @@ class AppDatabase {
 
     _database = db;
     return db;
+  }
+
+  static Future<void> _ensureColumn(
+      DatabaseExecutor db,
+      String table,
+      String column,
+      String definition,
+      ) async {
+    final columns = await db.rawQuery('PRAGMA table_info($table)');
+
+    final exists = columns.any(
+          (row) => row['name'] == column,
+    );
+
+    if (!exists) {
+      await db.execute(
+        'ALTER TABLE $table ADD COLUMN $column $definition',
+      );
+    }
+  }
+
+  static Future<void> _ensureV2Schema(DatabaseExecutor db) async {
+    await _ensureColumn(
+      db,
+      'orders',
+      'po_number',
+      'TEXT NULL',
+    );
+
+    await _ensureColumn(
+      db,
+      'shipments',
+      'bol_number',
+      'TEXT NULL',
+    );
+
+    await db.execute('''
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_shipments_bol_number
+    ON shipments(bol_number)
+  ''');
   }
 
   static Future<void> _createV1(Database db) async {
