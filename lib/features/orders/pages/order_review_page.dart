@@ -84,7 +84,7 @@ class OrderReviewPage extends StatelessWidget {
             children: [
               const ShipmentProgressHeader(
                 currentStep: 3,
-                labels: const ['Store & Schedule', 'Tanks', 'Review'],
+                labels: ['Store & Schedule', 'Tanks', 'Review'],
               ),
               const Divider(height: 1),
               Expanded(
