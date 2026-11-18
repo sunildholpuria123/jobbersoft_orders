@@ -44,5 +44,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Local SQLite test databases
+# SQLite local databases and temporary files
 *.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm

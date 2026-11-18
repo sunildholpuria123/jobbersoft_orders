@@ -1,27 +1,29 @@
-
 import 'package:flutter/material.dart';
-import 'core/database/app_database.dart';
+
+import 'core/di/injection.dart';
+import 'features/dashboard/dashboard_shell.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final db = await AppDatabase.instance.database;
+  await configureDependencies();
 
-  final stores = await db.rawQuery('SELECT COUNT(*) AS total FROM stores');
-  final orders = await db.rawQuery('SELECT COUNT(*) AS total FROM orders');
-  final shipments = await db.rawQuery('SELECT COUNT(*) AS total FROM shipments');
+  runApp(const JobberSoftApp());
+}
 
-  debugPrint('Stores: ${stores.first['total']}');
-  debugPrint('Orders: ${orders.first['total']}');
-  debugPrint('Shipments: ${shipments.first['total']}');
+class JobberSoftApp extends StatelessWidget {
+  const JobberSoftApp({super.key});
 
-  runApp(
-    const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('JobberSoft Database Initialized'),
-        ),
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'JobberSoft Orders',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
       ),
-    ),
-  );
+      home: const DashboardShell(),
+    );
+  }
 }
